@@ -1,17 +1,14 @@
 package com.g4appdev.BudgetTracker.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.g4appdev.BudgetTracker.entity.UserEntity;
 import com.g4appdev.BudgetTracker.service.UserService;
 
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -24,16 +21,29 @@ public class UserController {
         return "Hello, Username";
     }
 
-    // Create operation of CRUD
     @PostMapping("/postuserrecord")
     public UserEntity postUserRecord(@RequestBody UserEntity user) {
         return userService.postUserRecord(user);
     }
 
-    // Read operation of CRUD
     @GetMapping("/getAllUsers")
     public List<UserEntity> getAllUsers() {
         return userService.getAllUsers();
     }
-}
 
+    @PutMapping("/updateuser/{userId}")
+    public UserEntity updateUser(@PathVariable int userId, @RequestBody UserEntity user) {
+        return userService.updateUser(userId, user).orElse(null);
+    }
+
+    @DeleteMapping("/deleteuser/{userId}")
+    public boolean deleteUser(@PathVariable int userId) {
+        return userService.deleteUser(userId);
+    }
+
+    @GetMapping("/getUser/{userId}")
+    public UserEntity getUserById(@PathVariable int userId) {
+        return userService.getUserById(userId).orElse(null);
+    }
+
+}

@@ -7,10 +7,5 @@ import com.g4appdev.BudgetTracker.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
-
-    // This is a user-defined method to search a user record by username
-    public UserEntity findByUsername(String username);
-
-    // You may define more methods for searching, for instance, in this interface
-
+    UserEntity findByUsername(String username);
 }
